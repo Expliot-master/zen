@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zen - AI Assistant</title>
+    <title>Zen - AI Coding Assistant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/night-owl.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -16,105 +16,76 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
         
-        :root {
-            --primary-glow: #38bdf8;
-            --secondary-glow: #0ea5e9;
-        }
-        
         body {
-            background: #000000;
-            color: #ffffff;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e2e8f0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0;
-            overflow: hidden;
-            position: relative;
+            padding: 20px;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             width: 100%;
-            background: rgba(5, 5, 5, 0.85);
-            border-radius: 0;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(56, 189, 248, 0.1);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 100px rgba(56, 189, 248, 0.1);
-            position: relative;
-        }
-        
-        .animated-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(56, 189, 248, 0.02) 0%, transparent 50%);
-            z-index: -1;
-            animation: bgPulse 8s ease-in-out infinite;
-        }
-        
-        @keyframes bgPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
+            height: 90vh;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.1);
         }
         
         header {
-            background: rgba(10, 10, 10, 0.9);
-            color: #ffffff;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            padding: 28px 35px;
+            text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
         }
         
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-            animation: logoGlow 3s ease-in-out infinite alternate;
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            transform: rotate(30deg);
+            opacity: 0.3;
+            animation: float 20s infinite linear;
         }
         
-        @keyframes logoGlow {
-            0% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
-            100% { box-shadow: 0 0 30px rgba(56, 189, 248, 0.6); }
-        }
-        
-        .header-content {
-            flex: 1;
+        @keyframes float {
+            0% { transform: rotate(0deg) translateX(0px); }
+            100% { transform: rotate(360deg) translateX(0px); }
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 3.2rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            position: relative;
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
         }
         
         .tagline {
-            font-size: 1.1rem;
-            opacity: 0.7;
+            font-size: 1.2rem;
+            opacity: 0.8;
             font-weight: 300;
             letter-spacing: 1px;
         }
@@ -132,15 +103,20 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(56, 189, 248, 0.03) 0%, transparent 50%);
         }
         
+        /* Custom scrollbar */
         .chat-messages::-webkit-scrollbar {
             width: 8px;
         }
         
         .chat-messages::-webkit-scrollbar-track {
-            background: rgba(20, 20, 20, 0.5);
+            background: rgba(15, 23, 42, 0.5);
             border-radius: 10px;
         }
         
@@ -150,129 +126,74 @@
         }
         
         .message {
-            max-width: 75%;
+            max-width: 80%;
             padding: 20px 25px;
             border-radius: 20px;
             line-height: 1.6;
             position: relative;
-            animation: messageSlide 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
         }
         
-        @keyframes messageSlide {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px) scale(0.95); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .user-message {
             align-self: flex-end;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(14, 165, 233, 0.1) 100%);
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
             color: white;
             border-bottom-right-radius: 8px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            box-shadow: 0 8px 32px rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
         }
         
         .bot-message {
             align-self: flex-start;
-            background: rgba(20, 20, 20, 0.7);
+            background: rgba(30, 41, 59, 0.7);
             color: #e2e8f0;
+            border: 1px solid rgba(56, 189, 248, 0.2);
             border-bottom-left-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-        
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .message-sender {
-            font-size: 0.85rem;
-            font-weight: 600;
-            opacity: 0.8;
-        }
-        
-        .message-actions {
-            display: flex;
-            gap: 8px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .message:hover .message-actions {
-            opacity: 1;
-        }
-        
-        .copy-btn {
-            background: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 6px;
-            padding: 4px 8px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .copy-btn:hover {
-            background: rgba(56, 189, 248, 0.2);
-            border-color: #38bdf8;
-            transform: translateY(-1px);
         }
         
         .message-time {
             font-size: 0.75rem;
-            opacity: 0.5;
-            margin-top: 8px;
+            opacity: 0.7;
+            margin-top: 10px;
             text-align: right;
         }
         
         .input-area {
-            padding: 25px 30px;
-            background: rgba(10, 10, 10, 0.9);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(56, 189, 248, 0.2);
             display: flex;
             gap: 15px;
             align-items: center;
-            position: relative;
         }
         
         .message-input {
             flex: 1;
             padding: 18px 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
             border-radius: 50px;
             font-size: 1rem;
             outline: none;
-            transition: all 0.3s ease;
-            background: rgba(20, 20, 20, 0.7);
-            color: #ffffff;
+            transition: all 0.3s;
+            background: rgba(30, 41, 59, 0.7);
+            color: #e2e8f0;
             box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
         }
         
         .message-input:focus {
-            border-color: rgba(56, 189, 248, 0.5);
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
-            background: rgba(30, 30, 30, 0.8);
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+            background: rgba(30, 41, 59, 0.9);
         }
         
         .message-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: #94a3b8;
         }
         
         .send-button {
@@ -280,14 +201,14 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+            transition: all 0.3s;
+            box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
             position: relative;
             overflow: hidden;
         }
@@ -299,7 +220,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transition: 0.5s;
         }
         
@@ -308,23 +229,23 @@
         }
         
         .send-button:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 12px 25px rgba(56, 189, 248, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.5);
         }
         
         .send-button:active {
-            transform: translateY(0) scale(0.98);
+            transform: translateY(0);
         }
         
         .typing-indicator {
             display: none;
             align-self: flex-start;
-            background: rgba(20, 20, 20, 0.7);
-            padding: 18px 25px;
+            background: rgba(30, 41, 59, 0.7);
+            padding: 20px 25px;
             border-radius: 20px;
             border-bottom-left-radius: 8px;
             margin-bottom: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
         }
         
         .typing-dots {
@@ -333,8 +254,8 @@
         }
         
         .typing-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: #38bdf8;
             animation: typingAnimation 1.4s infinite ease-in-out;
@@ -350,14 +271,15 @@
         
         .welcome-message {
             text-align: center;
-            padding: 50px 30px;
-            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 30px;
+            color: #94a3b8;
         }
         
         .welcome-message h3 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            color: #e2e8f0;
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -365,27 +287,34 @@
         .suggestions {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 15px;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 25px;
         }
         
         .suggestion {
-            background: rgba(30, 30, 30, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(56, 189, 248, 0.3);
             border-radius: 50px;
             padding: 12px 24px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s;
+            color: #e2e8f0;
         }
         
         .suggestion:hover {
             background: rgba(56, 189, 248, 0.1);
-            border-color: rgba(56, 189, 248, 0.5);
+            border-color: #38bdf8;
             transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 6px 12px rgba(56, 189, 248, 0.2);
+        }
+        
+        footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #64748b;
         }
         
         pre {
@@ -393,8 +322,9 @@
             padding: 20px;
             overflow-x: auto;
             margin: 15px 0;
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #0f172a;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
         }
         
         code {
@@ -408,97 +338,43 @@
             align-items: center;
             margin-bottom: 12px;
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: #94a3b8;
         }
         
         .copy-button {
-            background: rgba(56, 189, 248, 0.1);
+            background: rgba(56, 189, 248, 0.2);
             color: #38bdf8;
             border: 1px solid rgba(56, 189, 248, 0.3);
             border-radius: 6px;
             padding: 6px 12px;
             font-size: 0.75rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            transition: all 0.3s;
         }
         
         .copy-button:hover {
-            background: rgba(56, 189, 248, 0.2);
+            background: rgba(56, 189, 248, 0.3);
             border-color: #38bdf8;
         }
         
-        footer {
-            padding: 20px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.5);
-            background: rgba(10, 10, 10, 0.9);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .copy-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(56, 189, 248, 0.9);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transform: translateX(150%);
-            transition: transform 0.3s ease;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .copy-notification.show {
-            transform: translateX(0);
-        }
-        
-        .api-status {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(20, 20, 20, 0.9);
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 1000;
-        }
-        
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #10b981;
-            animation: pulse 2s infinite;
-        }
-        
-        .status-dot.offline {
-            background: #ef4444;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
         }
         
         @media (max-width: 768px) {
             .container {
-                height: 100vh;
+                height: 95vh;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
             .message {
@@ -515,45 +391,15 @@
                 max-width: 300px;
                 text-align: center;
             }
-            
-            .message-actions {
-                opacity: 1;
-            }
-            
-            .api-status {
-                top: 10px;
-                left: 10px;
-                font-size: 0.7rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- API Status Indicator -->
-    <div class="api-status" id="apiStatus">
-        <div class="status-dot" id="statusDot"></div>
-        <span id="statusText">API Connected</span>
-    </div>
-    
-    <!-- Copy notification -->
-    <div class="copy-notification" id="copyNotification">
-        <i class="fas fa-check"></i>
-        <span>Copied to clipboard!</span>
-    </div>
-    
+    <div class="glow"></div>
     <div class="container">
-        <div class="animated-bg"></div>
-        
         <header>
-            <div class="logo">
-                <img src="https://cdn.discordapp.com/icons/1340529528916938818/ea07c7ba2f6fb8b16912273b3e422241.webp" 
-                     alt="Zen Logo" 
-                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
-            </div>
-            <div class="header-content">
-                <h1>ZEN</h1>
-                <p class="tagline">AI-Powered Coding & Conversations</p>
-            </div>
+            <h1>ZEN</h1>
+            <p class="tagline">AI-Powered Coding & Conversations</p>
         </header>
         
         <div class="chat-container">
@@ -562,10 +408,10 @@
                     <h3>Welcome to Zen</h3>
                     <p>Your AI assistant for coding, debugging, and creative problem-solving.</p>
                     <div class="suggestions">
-                        <div class="suggestion" onclick="insertSuggestion('Calculate 15% of 200')">Calculate 15% of 200</div>
-                        <div class="suggestion" onclick="insertSuggestion('Solve 2x + 5 = 15')">Solve 2x + 5 = 15</div>
-                        <div class="suggestion" onclick="insertSuggestion('What is the area of a circle with radius 5?')">Circle area</div>
-                        <div class="suggestion" onclick="insertSuggestion('Create a Python function for factorial')">Python factorial</div>
+                        <div class="suggestion" onclick="insertSuggestion('Create a responsive navbar with HTML/CSS')">Navbar HTML/CSS</div>
+                        <div class="suggestion" onclick="insertSuggestion('Python function to calculate factorial')">Python Factorial</div>
+                        <div class="suggestion" onclick="insertSuggestion('JavaScript fetch API example')">JS Fetch API</div>
+                        <div class="suggestion" onclick="insertSuggestion('Explain machine learning basics')">ML Basics</div>
                     </div>
                 </div>
             </div>
@@ -579,27 +425,23 @@
             </div>
             
             <div class="input-area">
-                <input type="text" class="message-input" id="messageInput" placeholder="Ask me anything - math, coding, or general questions..." onkeypress="handleKeyPress(event)">
+                <input type="text" class="message-input" id="messageInput" placeholder="Ask me to code something or explain a concept..." onkeypress="handleKeyPress(event)">
                 <button class="send-button" onclick="sendMessage()">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
         </div>
-        
-        <footer>
-            <p>Zen AI &copy; 2023 | Direct Answers & Code Solutions</p>
-        </footer>
     </div>
+    
+    <footer>
+        <p>Zen AI &copy; 2023 | Code with Clarity</p>
+    </footer>
 
     <script>
-        const apiKey = "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";
+        const apiKey = "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";
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
         const typingIndicator = document.getElementById('typingIndicator');
-        const copyNotification = document.getElementById('copyNotification');
-        const apiStatus = document.getElementById('apiStatus');
-        const statusDot = document.getElementById('statusDot');
-        const statusText = document.getElementById('statusText');
         
         // Configure marked to use highlight.js for code blocks
         marked.setOptions({
@@ -612,45 +454,6 @@
             langPrefix: 'hljs language-'
         });
         
-        // Test API connection on load
-        async function testApiConnection() {
-            try {
-                const response = await fetch("https://openrouter.ai/api/v1/models", {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${apiKey}`,
-                    }
-                });
-                
-                if (response.ok) {
-                    setApiStatus(true, "API Connected");
-                } else {
-                    setApiStatus(false, "API Error - Using Demo Mode");
-                }
-            } catch (error) {
-                setApiStatus(false, "API Offline - Using Demo Mode");
-            }
-        }
-        
-        function setApiStatus(connected, message) {
-            if (connected) {
-                statusDot.classList.remove('offline');
-                statusText.textContent = message;
-            } else {
-                statusDot.classList.add('offline');
-                statusText.textContent = message;
-            }
-        }
-        
-        // Demo responses for when API is offline
-        const demoResponses = {
-            'Calculate 15% of 200': '15% of 200 is 30.\n\n**Calculation:**\n200 × 0.15 = 30',
-            'Solve 2x + 5 = 15': 'x = 5\n\n**Steps:**\n2x + 5 = 15\n2x = 15 - 5\n2x = 10\nx = 10 ÷ 2\nx = 5',
-            'What is the area of a circle with radius 5?': 'The area of a circle with radius 5 is 25π or approximately 78.54 square units.\n\n**Formula:** A = πr²\n**Calculation:** A = π × 5² = 25π ≈ 78.54',
-            'Create a Python function for factorial': '```python\ndef factorial(n):\n    """Calculate factorial of a number"""\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\n\n# Example usage\nprint(factorial(5))  # Output: 120\n```\nThis function calculates factorial recursively. For n=5, it returns 120.',
-            'default': "I'd be happy to help with that! However, I'm currently in demo mode. In a full implementation, I would provide a detailed response to your question. For math problems, I give direct answers with step-by-step calculations. For coding questions, I provide complete code examples with explanations."
-        };
-        
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 sendMessage();
@@ -662,44 +465,20 @@
             messageInput.focus();
         }
         
-        function showCopyNotification() {
-            copyNotification.classList.add('show');
-            setTimeout(() => {
-                copyNotification.classList.remove('show');
-            }, 2000);
-        }
-        
         function addMessage(content, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = isUser ? 'message user-message' : 'message bot-message';
             
             const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const sender = isUser ? 'You' : 'Zen';
             
             if (isUser) {
                 messageDiv.innerHTML = `
-                    <div class="message-header">
-                        <div class="message-sender">${sender}</div>
-                        <div class="message-actions">
-                            <button class="copy-btn" onclick="copyMessage(this)">
-                                <i class="fas fa-copy"></i> Copy
-                            </button>
-                        </div>
-                    </div>
-                    <div class="message-content">${content}</div>
+                    <div>${content}</div>
                     <div class="message-time">${time}</div>
                 `;
             } else {
                 messageDiv.innerHTML = `
-                    <div class="message-header">
-                        <div class="message-sender">${sender}</div>
-                        <div class="message-actions">
-                            <button class="copy-btn" onclick="copyMessage(this)">
-                                <i class="fas fa-copy"></i> Copy
-                            </button>
-                        </div>
-                    </div>
-                    <div class="message-content">${marked.parse(content)}</div>
+                    <div>${marked.parse(content)}</div>
                     <div class="message-time">${time}</div>
                 `;
                 
@@ -711,51 +490,6 @@
             
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Add copy functionality to the message
-            addMessageCopyFunctionality(messageDiv, content);
-        }
-        
-        function addMessageCopyFunctionality(messageDiv, content) {
-            const copyBtn = messageDiv.querySelector('.copy-btn');
-            copyBtn.addEventListener('click', () => {
-                let textToCopy = content;
-                
-                if (!messageDiv.classList.contains('user-message')) {
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = marked.parse(content);
-                    textToCopy = tempDiv.textContent || tempDiv.innerText || '';
-                }
-                
-                copyToClipboard(textToCopy, copyBtn);
-            });
-        }
-        
-        function copyMessage(button) {
-            const messageDiv = button.closest('.message');
-            const messageContent = messageDiv.querySelector('.message-content');
-            let textToCopy = messageContent.textContent || messageContent.innerText;
-            copyToClipboard(textToCopy, button);
-        }
-        
-        function copyToClipboard(text, button) {
-            navigator.clipboard.writeText(text)
-                .then(() => {
-                    showCopyNotification();
-                    const originalHTML = button.innerHTML;
-                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        button.innerHTML = originalHTML;
-                    }, 2000);
-                })
-                .catch(err => {
-                    console.error('Failed to copy: ', err);
-                    const originalHTML = button.innerHTML;
-                    button.innerHTML = '<i class="fas fa-times"></i> Error';
-                    setTimeout(() => {
-                        button.innerHTML = originalHTML;
-                    }, 2000);
-                });
         }
         
         function addCopyButtons(container) {
@@ -768,19 +502,25 @@
                 const language = codeBlock.className.replace('hljs language-', '') || 'code';
                 header.innerHTML = `
                     <span>${language}</span>
-                    <button class="copy-button" onclick="copyCode(this)">
-                        <i class="fas fa-copy"></i> Copy Code
-                    </button>
+                    <button class="copy-button">Copy Code</button>
                 `;
                 
                 pre.parentElement.insertBefore(header, pre);
+                
+                const copyButton = header.querySelector('.copy-button');
+                copyButton.addEventListener('click', () => {
+                    navigator.clipboard.writeText(codeBlock.textContent)
+                        .then(() => {
+                            copyButton.textContent = 'Copied!';
+                            setTimeout(() => {
+                                copyButton.textContent = 'Copy Code';
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy: ', err);
+                        });
+                });
             });
-        }
-        
-        function copyCode(button) {
-            const codeBlock = button.closest('.code-header').nextElementSibling.querySelector('code');
-            const codeText = codeBlock.textContent;
-            copyToClipboard(codeText, button);
         }
         
         function showTypingIndicator() {
@@ -812,7 +552,6 @@
             showTypingIndicator();
             
             try {
-                // Try to use the API first
                 const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -826,25 +565,7 @@
                         "messages": [
                             {
                                 "role": "system",
-                                "content": `You are Zen, an AI assistant with expertise in programming and mathematics.
-
-For MATH questions:
-- Provide direct answers with clear explanations
-- Show step-by-step calculations when helpful
-- Use mathematical notation and symbols
-- DO NOT write Python code for math problems
-- Give the final answer clearly
-
-For PROGRAMMING questions:
-- Provide clean, efficient code examples
-- Use proper markdown code blocks with language specification
-- Include explanations of how the code works
-- Help with debugging and optimization
-
-For GENERAL questions:
-- Provide clear, concise answers
-- Be helpful and informative
-- Use appropriate formatting`
+                                "content": "You are Zen, an AI assistant with expertise in programming and software development. You provide clear, helpful code examples with explanations. When sharing code, use proper markdown code blocks with language specification. You can help with various programming languages, debugging, algorithms, web development, data science, and software engineering concepts. Keep responses concise but informative."
                             },
                             {
                                 "role": "user",
@@ -856,35 +577,26 @@ For GENERAL questions:
                     })
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    const content = data.choices?.[0]?.message?.content || demoResponses.default;
-                    addMessage(content);
-                    setApiStatus(true, "API Connected");
-                } else {
-                    throw new Error('API returned error status');
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error?.message || `HTTP error! status: ${response.status}`);
                 }
+
+                const content = data.choices?.[0]?.message?.content || "I'm sorry, I couldn't process that request. Please try again.";
+                addMessage(content);
                 
             } catch (err) {
-                console.error('API Error:', err);
-                setApiStatus(false, "API Offline - Using Demo Mode");
-                
-                // Use demo response
-                const demoResponse = demoResponses[message] || demoResponses.default;
-                setTimeout(() => {
-                    addMessage(demoResponse);
-                }, 1000);
+                console.error('Error:', err);
+                addMessage("I apologize, but I'm experiencing technical difficulties. Please try again in a moment.");
             } finally {
                 hideTypingIndicator();
             }
         }
         
-        // Initialize
-        testApiConnection();
-        
         // Add initial bot message
         setTimeout(() => {
-            addMessage("Hello! I'm Zen, your AI assistant. I can help with:\n\n• **Math problems** - direct answers with explanations\n• **Coding** - code examples in multiple languages  \n• **General questions** - clear, informative answers\n\nWhat would you like help with today?");
+            addMessage("Hello! I'm Zen, your AI coding assistant. I can help you with programming questions, write code examples, debug issues, explain concepts, and more. What would you like to create or learn today?");
         }, 1000);
         
         // Focus on input field
